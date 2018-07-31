@@ -47,12 +47,3 @@ RUN cd /home/ndn/ && \
 RUN cd /home/ndn/ndnSIM/ns-3/ && ./waf configure --enable-examples --enable-tests
 RUN cd /home/ndn/ndnSIM/ns-3/ && ./waf
 RUN cd /home/ndn/ndnSIM/ns-3/ && sudo ./waf install
-
-# pyNDN installation
-# RUN sudo apt install -y python-dev python-pip python3-pip
-# RUN sudo pip install cryptography trollius sphinx pytest mock
-# RUN sudo pip3 install protobuf
-# RUN cd /home/ndn/ndnSIM && \
-#     git clone https://github.com/named-data/PyNDN2.git && \
-#     cd PyNDN2 && \
-#     sudo python setup.py install
