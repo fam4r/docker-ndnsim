@@ -1,18 +1,43 @@
 FROM ubuntu:16.04
 
-# update system
-RUN apt update -y && apt upgrade -y && apt autoremove -y
+LABEL mantainer="Casadei Andrea <andrea.casadei22@studio.unibo.it>, Margotta Fabrizio <fabrizio.margotta@studio.unibo.it>"
 
-# base system packages
-RUN apt install -y wget curl git vim-gnome tar sudo
+# update system and install base system packages
+RUN apt update -y && apt install -y \
+		curl \
+		git \
+		sudo \
+		tar \
+		vim-gnome \
+		wget && \
+	apt autoremove -y
 
-# NDN core dependencies
-RUN apt install -y python python-setuptools build-essential libsqlite3-dev libcrypto++-dev libboost-all-dev libssl-dev libsqlite3-0 openssl pkg-config
+# update system and install NDN core dependencies
+RUN apt update -y && apt install -y \
+		build-essential \
+		libboost-all-dev \
+		libcrypto++-dev \
+		libsqlite3-0 \
+		libsqlite3-dev \
+		libssl-dev \
+		openssl \
+		pkg-config \
+		python \
+		python-setuptools && \
+	apt autoremove -y
 
-# NS-3 python bindings
-RUN apt install -y python-dev python-pygraphviz python-kiwi python-pygoocanvas python-gnome2 python-rsvg ipython
+# update system and install NS-3 python bindings
+RUN apt update -y && apt install -y \
+		ipython \
+		python-dev \
+		python-gnome2 \
+		python-kiwi \
+		python-pygoocanvas \
+		python-pygraphviz \
+		python-rsvg && \
+	apt autoremove -y
 
-# create user
+# create user and add little configs
 RUN export uid=1000 gid=1000 && \
     mkdir -p /home/ndn && \
     mkdir -p /etc/sudoers.d/ && \
@@ -27,23 +52,55 @@ RUN chpasswd && adduser ndn sudo
 USER ndn
 ENV HOME /home/ndn
 
-COPY .bashrc /home/ndn
-COPY .vimrc /home/ndn
+COPY bashrc /home/ndn/.bashrc
+COPY vimrc /home/ndn/.vimrc
 
-# clone ndnSIM
-RUN cd /home/ndn/ && \
-    mkdir ndnSIM && \
-    cd ndnSIM && \
-    git clone https://github.com/named-data-ndnSIM/ns-3-dev.git ns-3 && \
+# utility env vars
+ENV NDNSIM_PATH ${HOME}/ndnSIM
+ENV NS3_PATH ${NDNSIM_PATH}/ns-3
+ENV SCENARIO_PATH ${HOME}/ndn-application/scenario
+
+# clone ns-3 pybindgen ndnSIM
+RUN mkdir -p ${NDNSIM_PATH}
+WORKDIR ${NDNSIM_PATH}
+RUN git clone https://github.com/named-data-ndnSIM/ns-3-dev.git ns-3 && \
     git clone https://github.com/named-data-ndnSIM/pybindgen.git pybindgen && \
     git clone --recursive https://github.com/named-data-ndnSIM/ndnSIM.git ns-3/src/ndnSIM
 
-# checkout to a working build
-# RUN cd /home/ndn/ndnSIM/ns-3/src/ndnSIM && \
-#    git checkout 8821d3e61095407b7f59f374e203eeb3b04c62f5 && \
-#    cd /home/ndn/ndnSIM
+# checking out to used build (ndnSIM v2.5)
+WORKDIR ${NS3_PATH}
+RUN git checkout 05158549275e897c7d17922bdeada483b2b8ab11
+WORKDIR ${NDNSIM_PATH}/pybindgen
+RUN git checkout 0466ae3508076ccfb803a16c0eeffc2ed3fc32c3
+WORKDIR ${NS3_PATH}/src/ndnSIM/
+RUN git checkout 65c490630e1a2e9cdebaf505de8729838c000821
+WORKDIR ${NS3_PATH}/src/ndnSIM/NFD
+RUN git checkout 3bebd1190b1c45f8acaa0fe1d3a3100651a062e4
+WORKDIR ${NS3_PATH}/src/ndnSIM/ndn-cxx
+RUN git checkout e1ae096efd8ad503ce7dbd616ee174afaed6c66b
 
-# compiling and running
-RUN cd /home/ndn/ndnSIM/ns-3/ && ./waf configure --enable-examples --enable-tests
-RUN cd /home/ndn/ndnSIM/ns-3/ && ./waf
-RUN cd /home/ndn/ndnSIM/ns-3/ && sudo ./waf install
+# prepare environment for ndnSIM
+ENV PKG_CONFIG /usr/local/lib/pkgconfig:${NS3_PATH}/build/src/core
+ENV LD_LIBRARY_PATH /usr/local/lib
+
+# configuring, compiling and installing ndnSIM
+WORKDIR ${NS3_PATH}
+# optionally change visualizer default speed
+#RUN sed -e 's/speed_adj = gtk.Adjustment(1.0/speed_adj = gtk.Adjustment(0.4/g' -i ./src/visualizer/visualizer/core.py
+RUN	./waf configure && \
+	./waf && \
+	sudo ./waf install
+
+# downloading our simulation
+WORKDIR ${HOME}
+RUN git clone https://bitbucket.org/emrevoid-uni/ndn-application.git
+
+# configuring our simulation
+WORKDIR ${SCENARIO_PATH}
+RUN git pull
+RUN ./waf configure --debug
+
+#ENTRYPOINT ["sh"]
+#CMD ["-c", "NS_LOG=ndn.Producer:ndn.Consumer ./waf --run my-ndn-simple --vis"]
+
+ENTRYPOINT ["sh", "-c", "NS_LOG=ndn.Producer:ndn.Consumer ./waf --run project-scenario --vis"]
