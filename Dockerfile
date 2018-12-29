@@ -52,13 +52,9 @@ RUN chpasswd && adduser ndn sudo
 USER ndn
 ENV HOME /home/ndn
 
-COPY bashrc /home/ndn/.bashrc
-COPY vimrc /home/ndn/.vimrc
-
 # utility env vars
 ENV NDNSIM_PATH ${HOME}/ndnSIM
 ENV NS3_PATH ${NDNSIM_PATH}/ns-3
-ENV SCENARIO_PATH ${HOME}/ndn-application/scenario
 
 # clone ns-3 pybindgen ndnSIM
 RUN mkdir -p ${NDNSIM_PATH}
@@ -90,17 +86,3 @@ WORKDIR ${NS3_PATH}
 RUN	./waf configure && \
 	./waf && \
 	sudo ./waf install
-
-# downloading our simulation
-WORKDIR ${HOME}
-RUN git clone https://bitbucket.org/emrevoid-uni/ndn-application.git
-
-# configuring our simulation
-WORKDIR ${SCENARIO_PATH}
-RUN git pull
-RUN ./waf configure --debug
-
-#ENTRYPOINT ["sh"]
-#CMD ["-c", "NS_LOG=ndn.Producer:ndn.Consumer ./waf --run my-ndn-simple --vis"]
-
-ENTRYPOINT ["sh", "-c", "NS_LOG=ndn.Producer:ndn.Consumer ./waf --run project-scenario --vis"]
