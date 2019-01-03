@@ -8,7 +8,6 @@ LABEL mantainer="Casadei Andrea <andrea.casadei22@studio.unibo.it>, Margotta Fab
 # - NS-3 python bindings
 RUN apt update -y && apt install -y \
 		build-essential \
-		curl \
 		git \
 		libboost-all-dev \
 		libcrypto++-dev \
@@ -26,24 +25,24 @@ RUN apt update -y && apt install -y \
 		python-pygraphviz \
 		python-rsvg \
 		python-setuptools \
-		sudo \
-		tar \
-		wget \ 
-		vim-gnome \
 		&& apt autoremove -y \
 	 	&& rm -rf /var/lib/apt/lists/*
 
-# create user and add little configs
-RUN export uid=1000 gid=1000 && \
-    mkdir -p /home/ndn && \
-    mkdir -p /etc/sudoers.d/ && \
-    echo "ndn:x:${uid}:${gid}:ndn,,,:/home/ndn:/bin/bash" >> /etc/passwd && \
-    echo "ndn:x:${uid}:" >> /etc/group && \
-    echo "ndn ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/ndn && \
-    chmod 0440 /etc/sudoers.d/ndn && \
-    chown ${uid}:${gid} -R /home/ndn
+# create user
+RUN useradd --create-home \
+						--shell /bin/bash \
+						--user-group \
+						ndn
 
-RUN chpasswd && adduser ndn sudo
+# RUN export uid=1000 gid=1000 && \
+#    mkdir -p /home/ndn && \
+#    mkdir -p /etc/sudoers.d/ && \
+#    echo "ndn:x:${uid}:${gid}:ndn,,,:/home/ndn:/bin/bash" >> /etc/passwd && \
+#    echo "ndn:x:${uid}:" >> /etc/group && \
+#    echo "ndn ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/ndn && \
+#    chmod 0440 /etc/sudoers.d/ndn && \
+#    chown ${uid}:${gid} -R /home/ndn
+#RUN chpasswd && adduser ndn sudo
 
 USER ndn
 ENV HOME /home/ndn
