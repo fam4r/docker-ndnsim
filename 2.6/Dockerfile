@@ -8,19 +8,19 @@ ENV NS3_PATH ${NDNSIM_PATH}/ns-3
 
 # checking out to used build (ndnSIM v2.6)
 WORKDIR ${NS3_PATH}
-RUN git pull \
+RUN git pull --all \
 		&& git checkout ndnSIM-v2.6
 WORKDIR ${NDNSIM_PATH}/pybindgen
-RUN git pull \
+RUN git pull --all \
 		&& git checkout ef30ba23dd23afe41aef5bc9aced71c112ccc22e
 WORKDIR ${NS3_PATH}/src/ndnSIM/
-RUN git pull \
+RUN git pull --all \
 		&& git submodule update --init \
-		&& git checkout ndnSIM-2.6
+		&& git checkout 6028c61c25764311b625eae21153ae7149859720
 WORKDIR ${NS3_PATH}/src/ndnSIM/NFD
-RUN git checkout NFD-0.6.2
+RUN git checkout 0a30676920b9d3f2b2c8bc68e583befc415210cc
 WORKDIR ${NS3_PATH}/src/ndnSIM/ndn-cxx
-RUN git checkout ndn-cxx-0.6.2-ndnSIM
+RUN git checkout c37bf1633828ef6b69646a4989a9cef855e08248
 
 # prepare environment for ndnSIM
 ENV PKG_CONFIG /usr/local/lib/pkgconfig:${NS3_PATH}/build/src/core
