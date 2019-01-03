@@ -34,16 +34,6 @@ RUN useradd --create-home \
 						--user-group \
 						ndn
 
-# RUN export uid=1000 gid=1000 && \
-#    mkdir -p /home/ndn && \
-#    mkdir -p /etc/sudoers.d/ && \
-#    echo "ndn:x:${uid}:${gid}:ndn,,,:/home/ndn:/bin/bash" >> /etc/passwd && \
-#    echo "ndn:x:${uid}:" >> /etc/group && \
-#    echo "ndn ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/ndn && \
-#    chmod 0440 /etc/sudoers.d/ndn && \
-#    chown ${uid}:${gid} -R /home/ndn
-#RUN chpasswd && adduser ndn sudo
-
 USER ndn
 ENV HOME /home/ndn
 
