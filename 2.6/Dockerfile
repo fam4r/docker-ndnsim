@@ -32,4 +32,4 @@ WORKDIR ${NS3_PATH}
 #RUN sed -e 's/speed_adj = gtk.Adjustment(1.0/speed_adj = gtk.Adjustment(0.4/g' -i ./src/visualizer/visualizer/core.py
 RUN	./waf configure && \
 	./waf && \
-	sudo ./waf install
+	gosu root ./waf install
