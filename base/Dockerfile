@@ -4,15 +4,11 @@ LABEL mantainer="Casadei Andrea <andrea.casadei22@studio.unibo.it>, Margotta Fab
 
 # update system and install
 # - base system packages
-# - gosu
 # - NDN core dependencies
 # - NS-3 python bindings
-RUN set -eux; \ 
-		apt update -y && apt install -y \
+RUN apt update -y && apt install -y \
 		build-essential \
-		ca-certificates \
 		git \
-		gosu \
 		libboost-all-dev \
 		libcrypto++-dev \
 		libsqlite3-0 \
@@ -30,8 +26,7 @@ RUN set -eux; \
 		python-rsvg \
 		python-setuptools \
 		&& apt autoremove -y \
-	 	&& rm -rf /var/lib/apt/lists/* \
-		gosu nobody true
+	 	&& rm -rf /var/lib/apt/lists/*
 
 # create user
 RUN useradd --create-home \
