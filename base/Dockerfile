@@ -30,9 +30,9 @@ RUN apt update -y && apt install -y \
 
 # create user
 RUN useradd --create-home \
-						--shell /bin/bash \
-						--user-group \
-						ndn
+			--shell /bin/bash \
+			--user-group \
+			ndn
 
 USER ndn
 ENV HOME /home/ndn
