@@ -26,7 +26,7 @@ RUN apt update -y && apt install -y \
 		python-rsvg \
 		python-setuptools \
 		&& apt autoremove -y \
-	 	&& rm -rf /var/lib/apt/lists/*
+		&& rm -rf /var/lib/apt/lists/*
 
 # create user
 RUN useradd --create-home \
