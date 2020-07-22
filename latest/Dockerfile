@@ -1,4 +1,4 @@
-FROM emrevoid/ndnsim:base
+FROM emrevoid/ndnsim:base-latest
 
 LABEL mantainer="Casadei Andrea <andrea.casadei22@studio.unibo.it>, Margotta Fabrizio <fabrizio.margotta@studio.unibo.it>"
 
@@ -6,7 +6,7 @@ LABEL mantainer="Casadei Andrea <andrea.casadei22@studio.unibo.it>, Margotta Fab
 ENV NDNSIM_PATH ${HOME}/ndnSIM
 ENV NS3_PATH ${NDNSIM_PATH}/ns-3
 
-# checking out to used build (ndnSIM v2.6)
+# checking out to used build
 WORKDIR ${NS3_PATH}
 RUN git pull --all
 WORKDIR ${NDNSIM_PATH}/pybindgen
