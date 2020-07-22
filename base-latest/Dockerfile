@@ -1,1 +1,1 @@
-../base-16.04/Dockerfile
+../base-20.04/Dockerfile
