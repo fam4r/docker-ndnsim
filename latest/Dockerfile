@@ -15,9 +15,9 @@ WORKDIR ${NS3_PATH}/src/ndnSIM/
 RUN git pull --all \
 		&& git submodule update --init
 WORKDIR ${NS3_PATH}/src/ndnSIM/NFD
-RUN git pull --all
+RUN git pull origin master
 WORKDIR ${NS3_PATH}/src/ndnSIM/ndn-cxx
-RUN git pull --all
+RUN git pull origin master
 
 # prepare environment for ndnSIM
 ENV PKG_CONFIG /usr/local/lib/pkgconfig:${NS3_PATH}/build/src/core
