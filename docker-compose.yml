@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  ndnsim:
+    image: emrevoid/ndnsim:2.8
+    volumes:
+      - ./simulation:/home/ndn/simulation
+      - /tmp/.X11-unix/:/tmp/.X11-unix/
+    environment:
+      - DISPLAY=${DISPLAY}
+      - XAUTHORITY=${XAUTHORITY}
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    entrypoint: /home/ndn/ndnSIM/ns-3/waf --run=bench-simulator --vis
+
+volumes:
+  simulation:
