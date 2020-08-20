@@ -1,9 +1,11 @@
 # ndnSIM Docker image
 
-![Docker Image Version (latest by date)](https://img.shields.io/docker/v/emrevoid/ndnsim?logo=docker)
-![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/emrevoid/ndnsim?logo=docker)
+![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/emrevoid/ndnsim/2.8?logo=docker)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/emrevoid/ndnsim?logo=docker)
-![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/emrevoid/ndnsim?logo=docker)
+![Docker Pulls](https://img.shields.io/docker/pulls/emrevoid/ndnsim?logo=docker)
+![Docker Stars](https://img.shields.io/docker/stars/emrevoid/ndnsim?logo=docker)
+![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/emrevoid/ndnsim?logo=docker)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/emrevoid/ndnsim/2.8?logo=docker)
 
 ![NDN logo](https://ndnsim.net/current/_static/ndn-logo.png)
 
@@ -96,3 +98,8 @@ $ docker-compose run --rm ndnsim
 ```
 
 Using `docker-compose` you will not need to use `x11docker`.
+
+
+## Thanks
+
+- [seintzz](https://github.com/seintzz)
