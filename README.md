@@ -24,6 +24,9 @@ Features about that Docker image:
 
 ## Usage
 
+A simulation can be every NDN `waf` project in your drive, you just need to
+specify the absolute path.
+
 Logging can be enabled using the `NS_LOG` variable, e.g. `NS_LOG=ndn.Producer:ndn.Consumer`.
 
 ### `docker`
