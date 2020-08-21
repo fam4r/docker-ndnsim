@@ -4,7 +4,7 @@
 
 ### Base OS image
 
-Moved in [fam4r/docker-ndnsim-os](https://github.com/fam4r/docker-ndnsim-os/DEVELOPING.md).
+Moved in [fam4r/docker-ndnsim-os](https://github.com/fam4r/docker-ndnsim-os/blob/master/DEVELOPING.md).
 
 ### ndnSIM image
 
