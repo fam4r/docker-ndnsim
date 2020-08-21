@@ -4,11 +4,7 @@
 
 ### Base OS image
 
-```bash
-$ NDNSIM_DOCKER_OS_VERSION=20.04
-$ cd base-${NDNSIM_DOCKER_OS_VERSION}
-$ docker build --no-cache --tag localndnsimbase:${NDNSIM_DOCKER_OS_VERSION} .
-```
+Moved in [fam4r/docker-ndnsim-os](https://github.com/fam4r/docker-ndnsim-os/DEVELOPING.md).
 
 ### ndnSIM image
 
