@@ -24,7 +24,7 @@ If a new version is available:
     - you can also check the ["Downloading and Compiling ndnSIM" page](https://ndnsim.net/current/getting-started.html)
 - take note of the versions for NFD and ndn-cxx
 - Create a folder for the new version: `mkdir 2.8`
-- Copy the previous version Dockerfile into the new folder `cp 2.7/Dockerfile 2.8`
+- Copy the previous version Dockerfile into the new folder `cp 2.7/Dockerfile 2.8` (workaround for https://github.com/docker/hub-feedback/issues/759)
 - edit the `Dockerfile` tags/commits
   - https://github.com/named-data-ndnSIM/ns-3-dev
   - https://github.com/named-data-ndnSIM/pybindgen
