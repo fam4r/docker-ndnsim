@@ -9,7 +9,7 @@ ENV NS3_PATH ${NDNSIM_PATH}/ns-3
 # checking out to used build
 WORKDIR ${NS3_PATH}
 RUN git pull --all \
-		&& git checkout fbb238dc5061ff5e8eed873b84960078fb133e03
+		&& git checkout 173aec9e080c71e75cca67fb3088834a52f4956a
 WORKDIR ${NDNSIM_PATH}/pybindgen
 RUN git pull --all \
 		&& git checkout 572e1d92d9d0388de86b73d1ee37a10d0b0b633a
