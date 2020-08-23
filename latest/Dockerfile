@@ -1,4 +1,4 @@
-FROM emrevoid/ndnsim:base-latest
+FROM emrevoid/ndnsim-os:ubuntu-20.04
 
 LABEL mantainer="Casadei Andrea <andrea.casadei22@studio.unibo.it>, Margotta Fabrizio <fabrizio.margotta@studio.unibo.it>"
 
