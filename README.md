@@ -94,7 +94,7 @@ entries according to your simulation location.
 Comment the `entrypoint` entry if you want to spawn the container shell.
 
 ```bash
-$ docker-compose run --rm ndnsim
+$ UID=${UID} GID=${GID} docker-compose run --rm ndnsim
 ```
 
 Using `docker-compose` you will not need to use `x11docker`.
