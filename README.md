@@ -15,10 +15,12 @@
 
 ndnSIM is a patched version of the popular [ns-3](https://www.nsnam.org/) network simulator, for details please visit the [ndnSIM Introduction page](https://ndnsim.net/current/intro.html).
 
+## Features
+
 Features about that Docker image:
 - Python 2 for old simulations support (v2.8+ only)
-- [`pipenv`](https://github.com/pypa/pipenv) installed for your custom Python dependencies (v2.8+ only)
-- [`renv`](https://github.com/rstudio/renv) installed for your custom R dependencies (v2.8+ only)
+- [`pipenv`](https://github.com/pypa/pipenv) installed for your custom Python (2 & 3) dependencies (v2.8+ only)
+- R & [`renv`](https://github.com/rstudio/renv) installed for your custom R dependencies (v2.8+ only)
 - `docker-compose` with custom volume support for your simulations
 - visualizer dependencies installed
 
@@ -38,9 +40,8 @@ the following command.
 
 ```bash
 $ docker run \
-    -u root \
+    -u $(id -u):$(id -g) \
     -it \
-    -v ~/hub/docker-ndnsim/simulation/:/simulation \
     emrevoid/ndnsim:2.8 \
     /home/ndn/ndnSIM/ns-3/waf --run=bench-simulator
 ```
@@ -51,6 +52,24 @@ a simulation move into the proper location and run the `waf` command.
 
 ```bash
 ~/ndnSIM/ns-3# ./waf --run=bench-simulator
+```
+
+#### Separate scenario repository
+
+As reported into [ndnsim.net](https://ndnsim.net/current/getting-started.html#simulating-using-ndnsim)
+you can write and run simulations directly inside the NS-3 `scratch/` or `src/ndnSIM/examples/` folders.
+
+But for separation of concerns it is recommended to use a [separated repository](https://github.com/named-data-ndnSIM/scenario-template) for your scenario stuff (simulation sources, extensions, graph scripts...).
+
+To make it available into the dockerized ndnSIM you can use the `--volume` option to mount local files into the isolated environment.
+
+```bash
+$ docker run \
+    -u $(id -u):$(id -g) \
+    -it \
+    -v ~/hub/docker-ndnsim/simulation/:/simulation \
+    emrevoid/ndnsim:2.8 \
+    /simulation/waf --run=simulation-source-file
 ```
 
 #### Run with visualizer
@@ -94,7 +113,7 @@ entries according to your simulation location.
 Comment the `entrypoint` entry if you want to spawn the container shell.
 
 ```bash
-$ UID=${UID} GID=${GID} docker-compose run --rm ndnsim
+$ UID=$(id -u) GID=$(id -g) docker-compose run --rm ndnsim
 ```
 
 Using `docker-compose` you will not need to use `x11docker`.
