@@ -30,7 +30,7 @@ ENV LD_LIBRARY_PATH /usr/local/lib
 WORKDIR ${NS3_PATH}
 # optionally change visualizer default speed
 #RUN sed -e 's/speed_adj = gtk.Adjustment(1.0/speed_adj = gtk.Adjustment(0.4/g' -i ./src/visualizer/visualizer/core.py
-RUN	./waf configure \
+RUN	./waf configure -d optimized \
 		&& ./waf
 USER root
 RUN	./waf install
