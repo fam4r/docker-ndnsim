@@ -11,7 +11,11 @@ services:
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     user: "${UID}:${GID}"
-    entrypoint: /home/ndn/ndnSIM/ns-3/waf --run=bench-simulator --vis
+    cap_drop:
+      - ALL
+    ipc: host
+    security_opt:
+      - no-new-privileges
 
 volumes:
   simulation:
