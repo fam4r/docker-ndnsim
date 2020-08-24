@@ -16,6 +16,7 @@ services:
     ipc: host
     security_opt:
       - no-new-privileges
+    entrypoint: /home/ndn/ndnSIM/ns-3/waf --run=bench-simulator --vis
 
 volumes:
   simulation:
