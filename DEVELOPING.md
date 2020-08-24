@@ -56,12 +56,28 @@ Wait for the GitHub mirrored repository to get the updates, then push the tags a
 $ git push --tags origin
 ```
 
-## Running ndnSIM tests
+## Running ndnSIM examples/tests
 
 Run the docker image: [command](./README.md#docker)
 
+### Check the configuration
+
 ```bash
-# cd ~/ndnSIM/ns-3/
+$ ./waf check
+```
+
+### Run ns-3 tests
+
+```bash
+$ ./waf configure -d debug --enable-tests
+$ ./test.py
+```
+
+### Run examples
+
+```bash
+$ cd ~/ndnSIM/ns-3/
+$ ./waf configure -d debug --enable-examples
 ```
 
 Notes:
@@ -70,19 +86,19 @@ Notes:
 - visualizer can be tested (if installed) appending the `--vis` option to the
   `waf` command
 
-### C++ tests
+#### C++ examples
 
 ```bash
-# ./waf --run=ndn-simple
+$ ./waf --run=ndn-simple
 ```
 
-### Python 2 tests
+#### Python 2 examples
 ```bash
-# ./waf --pyrun=src/ndnSIM/examples/ndn-simple.py
+$ ./waf --python=/usr/bin/python2 --pyrun=src/ndnSIM/examples/ndn-simple.py
 ```
 
-### Python 3 tests
+#### Python 3 tests
 
 ```bash
-# ./waf --python=/usr/bin/python3 --pyrun=src/ndnSIM/examples/ndn-simple.py
+$ ./waf --python=/usr/bin/python3 --pyrun=src/ndnSIM/examples/ndn-simple.py
 ```
