@@ -32,7 +32,15 @@ Features about that Docker image:
 A simulation can be every NDN `waf` project in your drive, you just need to
 specify the absolute path.
 
+### A note on logging
+
 Logging can be enabled using the `NS_LOG` variable, e.g. `NS_LOG=ndn.Producer:ndn.Consumer`.
+
+As reported in ndnsim.net, to show logs you need ndnSIM to be compiled in `debug` mode.
+
+From version 2.8 this Docker image supports `optimized` mode by default (e.g. `2.8` tag)
+and `debug` mode appending `-debug` (e.g. `2.8-debug`): clearly you need to edit the `docker run`
+commands you see in this doc and in `docker-compose.yml` file.
 
 ### `docker`
 
