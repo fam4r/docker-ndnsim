@@ -34,4 +34,7 @@ RUN	./waf configure -d optimized \
 		&& ./waf
 USER root
 RUN	./waf install
+RUN ldconfig
+# https://github.com/remap/ndnfs-port/issues/8
+RUN ln -s /usr/lib/x86_64-linux-gnu/ /usr/lib64
 USER ndn
