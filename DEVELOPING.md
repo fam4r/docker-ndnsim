@@ -29,6 +29,8 @@ If a new version is available:
   - https://github.com/named-data-ndnSIM/ns-3-dev
   - https://github.com/named-data-ndnSIM/pybindgen
   - https://github.com/named-data-ndnSIM/ndnSIM
+- build and test the image as described above
+- create and test both `optimized` and `debug` Docker images
 - `ln -sr 2.8/Dockerfile Dockerfile`
 - edit the `docker-compose.yml` file with the new version
 - commit the new `Dockerfile`

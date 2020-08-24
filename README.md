@@ -18,6 +18,7 @@ ndnSIM is a patched version of the popular [ns-3](https://www.nsnam.org/) networ
 ## Features
 
 Features about that Docker image:
+- providing both `optimized` and `debug` compiled ndnSIM (v2.8+ only)
 - Python 2 for old simulations support (v2.8+ only)
 - [`pipenv`](https://github.com/pypa/pipenv) installed for your custom Python (2 & 3) dependencies (v2.8+ only)
 - R & [`renv`](https://github.com/rstudio/renv) installed for your custom R dependencies (v2.8+ only)
