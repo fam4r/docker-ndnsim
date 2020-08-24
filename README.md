@@ -60,7 +60,7 @@ execute the command. You can now type commands into the docker container. To run
 a simulation move into the proper location and run the `waf` command.
 
 ```bash
-~/ndnSIM/ns-3# ./waf --run=bench-simulator
+$ ./waf --run=bench-simulator
 ```
 
 #### Separate scenario repository
