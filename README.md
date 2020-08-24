@@ -119,6 +119,23 @@ $ UID=$(id -u) GID=$(id -g) docker-compose run --rm ndnsim
 
 Using `docker-compose` you will not need to use `x11docker`.
 
+### Using `renv`
+
+From [Using renv with Docker](https://rstudio.github.io/renv/articles/docker.html).
+
+```bash
+$ RENV_PATHS_CACHE_HOST=$(pwd)/simulation/renv_modules
+$ RENV_PATHS_CACHE_CONTAINER=/home/ndn/renv_modules
+$ docker run \
+    -u $(id -u):$(id -g) \
+    -it \
+    -e "RENV_PATHS_CACHE=${RENV_PATHS_CACHE_CONTAINER}" \
+    -v "${RENV_PATHS_CACHE_HOST}:${RENV_PATHS_CACHE_CONTAINER}" \
+    emrevoid/ndnsim:2.8 \
+    /home/ndn/ndnSIM/ns-3/waf --run=bench-simulator
+```
+
+For the `docker-compose` version just add the proper options as `yml` entries.
 
 ## Thanks
 
