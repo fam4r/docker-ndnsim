@@ -70,25 +70,6 @@ a simulation move into the proper location and run the `waf` command.
 $ ./waf --run=bench-simulator
 ```
 
-#### Separate scenario repository
-
-As reported into [ndnsim.net](https://ndnsim.net/current/getting-started.html#simulating-using-ndnsim)
-you can write and run simulations directly inside the NS-3 `scratch/` or `src/ndnSIM/examples/` folders.
-
-But for separation of concerns it is recommended to use a [separated repository](https://github.com/named-data-ndnSIM/scenario-template) for your scenario stuff (simulation sources, extensions, graph scripts...).
-
-To make it available into the dockerized ndnSIM you can use the `--volume` option to mount local files into the isolated environment.
-
-```bash
-$ docker run \
-    -u $(id -u):$(id -g) \
-    -it \
-    -v ~/hub/docker-ndnsim/simulation/:/simulation \
-    emrevoid/ndnsim:2.8 \
-    /simulation/waf configure && \
-    /simulation/waf --run=simulation-source-file
-```
-
 #### Run with visualizer
 
 To run the visualizer you need to use the `--vis` option to the `waf` command.
@@ -120,6 +101,38 @@ $ docker run --rm \
     --security-opt=no-new-privileges \
     emrevoid/ndnsim:2.8 \
     /home/ndn/ndnSIM/ns-3/waf --run=bench-simulator --vis
+```
+
+#### Separate scenario repository
+
+As reported into [ndnsim.net](https://ndnsim.net/current/getting-started.html#simulating-using-ndnsim)
+you can write and run simulations directly inside the NS-3 `scratch/` or `src/ndnSIM/examples/` folders.
+
+But for separation of concerns it is recommended to use a [separated repository](https://github.com/named-data-ndnSIM/scenario-template) for your scenario stuff (simulation sources, extensions, graph scripts...).
+
+To make it available into the dockerized ndnSIM you can use the `--volume` option to mount local files into the isolated environment.
+
+```bash
+$ docker run \
+    -u $(id -u):$(id -g) \
+    -it \
+    -v ~/hub/docker-ndnsim/simulation/:/simulation \
+    emrevoid/ndnsim:2.8 \
+    /simulation/waf configure && \
+    /simulation/waf --run=simulation-source-file
+```
+
+##### ...with visualizer
+
+[source](https://github.com/cawka/ns3-scenario-template#running-with-visualizer)
+
+If you want to use visualizer module while running simulations from a separate repository you have to previously run the `waf` shell into the NS-3 folder:
+
+```bash
+~/ndnSIM/ns-3$ ./waf shell
+$ cd ~/simulation
+$ ./waf configure
+$ PKG_LIBRARY_PATH=/usr/local/lib ./waf --run ndn-simple --vis
 ```
 
 ### `docker-compose`
