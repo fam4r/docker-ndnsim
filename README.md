@@ -42,6 +42,13 @@ From version 2.8 this Docker image supports `optimized` mode by default (e.g. `2
 and `debug` mode appending `-debug` (e.g. `2.8-debug`): clearly you need to edit the `docker run`
 commands you see in this doc and in `docker-compose.yml` file.
 
+In that case you will need to configure the simulation with the debug option enabled:
+
+```bash
+$ ./waf configure --debug
+$ NS_LOG=ndn.Producer:ndn.Consumer ./waf --run=ndn-simple
+```
+
 ### `docker`
 
 If you want to directly run a simulation into the docker container you can use
@@ -78,6 +85,7 @@ $ docker run \
     -it \
     -v ~/hub/docker-ndnsim/simulation/:/simulation \
     emrevoid/ndnsim:2.8 \
+    /simulation/waf configure && \
     /simulation/waf --run=simulation-source-file
 ```
 
