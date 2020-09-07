@@ -145,6 +145,10 @@ $ docker run \
 
 For the `docker-compose` version just add the proper options as `yml` entries.
 
+## Troubleshooting
+
+See [here](./TROUBLESHOOTING.md).
+
 ## Thanks
 
 - [seintzz](https://github.com/seintzz)
