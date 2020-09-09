@@ -124,7 +124,7 @@ $ docker run \
 
 ##### ...with visualizer
 
-[source](https://github.com/cawka/ns3-scenario-template#running-with-visualizer)
+[source](https://github.com/named-data-ndnSIM/scenario-template#running-with-visualizer)
 
 If you want to use visualizer module while running simulations from a separate repository you have to previously run the `waf` shell into the NS-3 folder:
 
